@@ -31,8 +31,8 @@ if test == "1":
         while fight: 
             ans = input("You are fighting a "+monster.name+". What would you like to do?\n1.Attack\n")
             if ans == "1":
-                monster.health -= player.atk
-                player.health -= monster.atk
+                monster.health -= r.randrange(0,player.atk)
+                player.health -= r.randrange(0,monster.atk)
                 if monster.health <= 0:
                     print("You killed the "+monster.name)
                     fight = False
