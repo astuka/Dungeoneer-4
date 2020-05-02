@@ -1,27 +1,36 @@
+#TO DO
+# Make xp_cap expand over time
+# make lvl actually do things for player
+
+
 import random as r
 
 #creates a Character
 class Character:
-    def __init__(self,health=100,atk=10,de=10):
+    def __init__(self,health=100,atk=10,de=10, xp=0, xp_cap = 100, lvl = 1):
         self.health = health
         self.atk = atk
         self.de = de
+        self.xp = xp
+        self.xp_cap = xp_cap
+        self.lvl = lvl
 
 #creates a Monster
 class Monster:
-    def __init__(self,name, health,atk,de):
+    def __init__(self,name, health,atk,de, xp):
         self.name = name
         self.health = health
         self.atk = atk
         self.de = de
+        self.xp = xp
 
 #main menu
 test = input("Welcome to Dungeoneer 4\n1. Start game \n")
 
 #monster initialization
-goblin = Monster("Goblin", 10, 13, 3)
-orc = Monster("Orc", 5, 15, 5)
-ogre = Monster("Ogre", 20, 11, 1)
+goblin = Monster("Goblin", 10, 13, 3, 10)
+orc = Monster("Orc", 5, 15, 5, 15)
+ogre = Monster("Ogre", 20, 11, 1, 20)
 monsters = [goblin,orc,ogre]
 
 #game loop
@@ -40,8 +49,15 @@ if test == "1":
                 monster.health -= max(r.randrange(0,player.atk) - r.randrange(0,monster.de),0) #either does damage or blocks all damage
                 player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
                 if monster.health <= 0:
-                    print("You killed the "+monster.name)
+                    print("You killed the "+monster.name+" and received "+str(monster.xp)+" XP.")
                     fight = False
+                    player.xp += monster.xp
+                    if player.xp >= player.xp_cap:
+                        player.lvl += 1
+                        player.xp = 0
+                        player.health = 100 #this is a hardcode, needs to be fixed
+                        #add xp_cap scaling here
+                        print("You leveled up! You are now level "+str(player.lvl))
                     #reset monster health
                     monster.health = monster_default
                 else:
