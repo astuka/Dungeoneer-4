@@ -1,6 +1,6 @@
 #TO DO
-# Make xp_cap expand over time
-# make lvl actually do things for player
+#more monsters -- have them scale to level?
+    #zones with dif monsters?
 
 
 import random as r
@@ -33,10 +33,12 @@ orc = Monster("Orc", 5, 15, 5, 15)
 ogre = Monster("Ogre", 20, 11, 1, 20)
 monsters = [goblin,orc,ogre]
 
+
 #game loop
 game = True
 if test == "1":
     player = Character()
+    player_default = player.health
     while game:
         #pick monster
         monster = monsters[r.randrange(0,len(monsters))]
@@ -55,8 +57,11 @@ if test == "1":
                     if player.xp >= player.xp_cap:
                         player.lvl += 1
                         player.xp = 0
-                        player.health = 100 #this is a hardcode, needs to be fixed
-                        #add xp_cap scaling here
+                        player.health = player_default + 10
+                        player_default = player.health 
+                        player.atk += 1
+                        player.de += 1
+                        player.xp_cap += 50
                         print("You leveled up! You are now level "+str(player.lvl))
                     #reset monster health
                     monster.health = monster_default
