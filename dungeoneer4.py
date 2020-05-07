@@ -1,7 +1,7 @@
 #TO DO
 #more monsters -- have them scale to level?
     #zones with dif monsters?
-
+#incorporate elements from DnD
 
 import random as r
 
@@ -31,7 +31,10 @@ test = input("Welcome to Dungeoneer 4\n1. Start game \n")
 goblin = Monster("Goblin", 10, 13, 3, 10)
 orc = Monster("Orc", 5, 15, 5, 15)
 ogre = Monster("Ogre", 20, 11, 1, 20)
-monsters = [goblin,orc,ogre]
+
+#zones
+zones = ["Lake Zone"]
+lakezone_monsters = [goblin,orc,ogre]
 
 
 #game loop
@@ -41,12 +44,12 @@ if test == "1":
     player_default = player.health
     while game:
         #pick monster
-        monster = monsters[r.randrange(0,len(monsters))]
+        monster = lakezone_monsters[r.randrange(0,len(lakezone_monsters))] #fix this this no longer works
         #make sure monsters health doesnt save
         monster_default = monster.health
         fight = True
         while fight: 
-            ans = input("You are fighting a "+monster.name+". What would you like to do?\n1.Attack\n")
+            ans = input("You are fighting a "+monster.name+". What would you like to do?\n1.Attack\n2.Switch Zone\n")
             if ans == "1":
                 monster.health -= max(r.randrange(0,player.atk) - r.randrange(0,monster.de),0) #either does damage or blocks all damage
                 player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
@@ -71,6 +74,14 @@ if test == "1":
                     print("You died.")
                     fight = False
                     game = False
+            if ans == "2":
+                num_zone = 1
+                for zone in zones:
+                    print(str(num_zone) +". "+ zone+"\n")
+                    num_zone += 1
+                zone_choice = input("Which zone would you like to go to?\n")
+                print(zones[int(zone_choice) - 1])
+                #in a later update this should then change which monsters get picked from the zone                    
 else:
     while test != "1":
         test = input("Please choose a valid option.\n")
