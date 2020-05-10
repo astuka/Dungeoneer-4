@@ -1,6 +1,5 @@
 #TO DO
-#more monsters -- have them scale to level?
-    #zones with dif monsters?
+#the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
 
 import random as r
@@ -32,11 +31,16 @@ goblin = Monster("Goblin", 10, 13, 3, 10)
 orc = Monster("Orc", 5, 15, 5, 15)
 ogre = Monster("Ogre", 20, 11, 1, 20)
 
+sahuagin = Monster("Sahuagin", 5, 15, 1, 20)
+naga = Monster("Naga", 15, 5, 1, 20)
+
+
 #zones
-zones = ["Lake Zone"]
-lakezone_monsters = [goblin,orc,ogre]
+zones = ["Lake", "Forest"]
+lake_monsters = [sahuagin, naga]
+forest_monsters = [goblin, orc, ogre]
 
-
+monsters = lake_monsters
 #game loop
 game = True
 if test == "1":
@@ -44,7 +48,7 @@ if test == "1":
     player_default = player.health
     while game:
         #pick monster
-        monster = lakezone_monsters[r.randrange(0,len(lakezone_monsters))] #fix this this no longer works
+        monster = monsters[r.randrange(0,len(monsters))] #fix this this no longer works
         #make sure monsters health doesnt save
         monster_default = monster.health
         fight = True
@@ -81,7 +85,10 @@ if test == "1":
                     num_zone += 1
                 zone_choice = input("Which zone would you like to go to?\n")
                 print(zones[int(zone_choice) - 1])
-                #in a later update this should then change which monsters get picked from the zone                    
+                if zone_choice == '1':
+                    monsters = lake_monsters    
+                if zone_choice == '2':
+                    monsters = forest_monsters             
 else:
     while test != "1":
         test = input("Please choose a valid option.\n")
