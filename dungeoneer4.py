@@ -3,6 +3,7 @@
 #incorporate elements from DnD
 
 import random as r
+import numpy as np
 
 #creates a Character
 class Character:
