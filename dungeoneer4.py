@@ -1,10 +1,11 @@
 #TO DO
 #save feature
+#   get numpy working, in long term
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
 
 import random as r
-import numpy as np
+#import numpy as np
 
 #creates a Character
 class Character:
@@ -50,12 +51,20 @@ if test == "1":
   player_default = player.health
 
 if test == "2":
-  player = np.load('player.npy')
-  player_default = player.health
+    save = open('save.txt','r')
+    #convert this to a for loop next time
+    health = save.readline()
+    atk = save.readline()
+    de = save.readline()
+    xp = save.readline()
+    xp_cap = save.readline()
+    lvl =save.readline()
+    player = Character(health,atk,de,xp,xp_cap,lvl)
+    player_default = player.health
     
 while game:
     #pick monster
-    monster = monsters[r.randrange(0,len(monsters))] #fix this this no longer works
+    monster = monsters[r.randrange(0,len(monsters))]
     #make sure monsters health doesnt save
     monster_default = monster.health
     fight = True
@@ -97,8 +106,10 @@ while game:
             if zone_choice == '2':
                 monsters = forest_monsters   
         if ans == "3":
-          np.save('player',player)
-          print("Player saved.\n")
+            save = open('save.txt','w')
+            save.writelines(n) for n = [player.health, player.atk, player.de, player.xp,player.xp_cap, player.lvl]
+            save.close()
+            print("Player saved.\n")
 
 else:
     while test != "1":
