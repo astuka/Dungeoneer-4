@@ -1,8 +1,9 @@
 #TO DO
 #save feature
-#   get numpy working, in long term
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
+#put down how much damage enemies/player do
+# fix formatting on the new zones
 
 import random as r
 #import numpy as np
@@ -25,6 +26,7 @@ class Monster:
         self.atk = atk
         self.de = de
         self.xp = xp
+
 
 #main menu
 test = input("Welcome to Dungeoneer 4\n1. Start game \n2. Load Game\n")
@@ -53,12 +55,12 @@ if test == "1":
 if test == "2":
     save = open('save.txt','r')
     #convert this to a for loop next time
-    health = save.readline()
-    atk = save.readline()
-    de = save.readline()
-    xp = save.readline()
-    xp_cap = save.readline()
-    lvl =save.readline()
+    health = int(save.readline())
+    atk = int(save.readline())
+    de = int(save.readline())
+    xp = int(save.readline())
+    xp_cap = int(save.readline())
+    lvl =int(save.readline())
     player = Character(health,atk,de,xp,xp_cap,lvl)
     player_default = player.health
     
@@ -107,7 +109,8 @@ while game:
                 monsters = forest_monsters   
         if ans == "3":
             save = open('save.txt','w')
-            save.writelines(n) for n = [player.health, player.atk, player.de, player.xp,player.xp_cap, player.lvl]
+            n = [str(player.health)+"\n", str(player.atk)+"\n", str(player.de)+"\n", str(player.xp)+"\n",str(player.xp_cap)+"\n", str(player.lvl)+"\n"]
+            save.writelines(n)
             save.close()
             print("Player saved.\n")
 
