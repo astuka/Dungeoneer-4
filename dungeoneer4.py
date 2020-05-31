@@ -1,9 +1,9 @@
 #TO DO
-#save feature
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
-#put down how much damage enemies/player do
-# fix formatting on the new zones
+#add magic
+#add items
+#recommended levels for the zones
 
 import random as r
 #import numpy as np
@@ -40,18 +40,19 @@ sahuagin = Monster("Sahuagin", 5, 15, 1, 20)
 naga = Monster("Naga", 15, 5, 1, 20)
 
 
-#zones
+#zones + monsters
 zones = ["Lake", "Forest"]
 lake_monsters = [sahuagin, naga]
 forest_monsters = [goblin, orc, ogre]
 
 monsters = lake_monsters
-#game loop
-game = True
+
+#new game
 if test == "1":
   player = Character()
   player_default = player.health
 
+#load game
 if test == "2":
     save = open('save.txt','r')
     #convert this to a for loop next time
@@ -63,7 +64,10 @@ if test == "2":
     lvl =int(save.readline())
     player = Character(health,atk,de,xp,xp_cap,lvl)
     player_default = player.health
-    
+
+
+#game loop
+game = True
 while game:
     #pick monster
     monster = monsters[r.randrange(0,len(monsters))]
@@ -97,6 +101,7 @@ while game:
                 fight = False
                 game = False
         if ans == "2":
+            print("\n")
             num_zone = 1
             for zone in zones:
                 print(str(num_zone) +". "+ zone+"\n")
