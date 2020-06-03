@@ -1,19 +1,21 @@
 #TO DO
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
-#add magic
+#add magic/skills
 #add items
 #recommended levels for the zones
+#add classes
 
 import random as r
 #import numpy as np
 
 #creates a Character
 class Character:
-    def __init__(self,health=100,atk=10,de=10, xp=0, xp_cap = 100, lvl = 1):
+    def __init__(self,health=100,atk=10,de=10, mag=10, xp=0, xp_cap = 100, lvl = 1):
         self.health = health
         self.atk = atk
         self.de = de
+        self.mag = mag
         self.xp = xp
         self.xp_cap = xp_cap
         self.lvl = lvl
@@ -26,6 +28,13 @@ class Monster:
         self.atk = atk
         self.de = de
         self.xp = xp
+
+class Skill:
+    def __init__(self, name, typ, ability, cost):
+        self.name = name
+        self.typ = typ
+        self.ability = ability
+        self.cost = cost
 
 
 #main menu
@@ -54,15 +63,17 @@ if test == "1":
 
 #load game
 if test == "2":
+    #set a thing if they try to open this and there's no save theres an error
     save = open('save.txt','r')
     #convert this to a for loop next time
     health = int(save.readline())
     atk = int(save.readline())
     de = int(save.readline())
+    mag = int(save.readline())
     xp = int(save.readline())
     xp_cap = int(save.readline())
     lvl =int(save.readline())
-    player = Character(health,atk,de,xp,xp_cap,lvl)
+    player = Character(health,atk,de,mag,xp,xp_cap,lvl)
     player_default = player.health
 
 
@@ -90,6 +101,7 @@ while game:
                     player_default = player.health 
                     player.atk += 1
                     player.de += 1
+                    player.mag += 5
                     player.xp_cap += 50
                     print("You leveled up! You are now level "+str(player.lvl))
                 #reset monster health
@@ -114,7 +126,7 @@ while game:
                 monsters = forest_monsters   
         if ans == "3":
             save = open('save.txt','w')
-            n = [str(player.health)+"\n", str(player.atk)+"\n", str(player.de)+"\n", str(player.xp)+"\n",str(player.xp_cap)+"\n", str(player.lvl)+"\n"]
+            n = [str(player.health)+"\n", str(player.atk)+"\n", str(player.de)+"\n",str(player.mag)+"\n", str(player.xp)+"\n",str(player.xp_cap)+"\n", str(player.lvl)+"\n"]
             save.writelines(n)
             save.close()
             print("Player saved.\n")
