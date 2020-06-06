@@ -40,6 +40,13 @@ class Skill:
 #main menu
 test = input("Welcome to Dungeoneer 4\n1. Start game \n2. Load Game\n")
 
+#skill types
+magic_attack = 0
+magic_defense = 1
+
+#skill initialization
+fireball = Skill("Fireball", magic_attack, 10, 10)
+
 #monster initialization
 goblin = Monster("Goblin", 10, 13, 3, 10)
 orc = Monster("Orc", 5, 15, 5, 15)
@@ -86,8 +93,9 @@ while game:
     monster_default = monster.health
     fight = True
     while fight: 
-        ans = input("You are fighting a "+monster.name+". What would you like to do?\n1.Attack\n2.Switch Zone\n3.Save\n")
-        if ans == "1":
+        ans0 = input("You are fighting a "+monster.name+". What would you like to do?\n1.Attack\n2.Switch Zone\n3.Save\n")
+        if ans0 == "1":
+            #have an ans1 here that asks for fight or magic, for magic have them choose which one, then have outside stuff that says "hey you cant use this" or whatever
             monster.health -= max(r.randrange(0,player.atk) - r.randrange(0,monster.de),0) #either does damage or blocks all damage
             player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
             if monster.health <= 0:
@@ -112,7 +120,7 @@ while game:
                 print("You died.")
                 fight = False
                 game = False
-        if ans == "2":
+        if ans0 == "2":
             print("\n")
             num_zone = 1
             for zone in zones:
@@ -124,7 +132,7 @@ while game:
                 monsters = lake_monsters    
             if zone_choice == '2':
                 monsters = forest_monsters   
-        if ans == "3":
+        if ans0 == "3":
             save = open('save.txt','w')
             n = [str(player.health)+"\n", str(player.atk)+"\n", str(player.de)+"\n",str(player.mag)+"\n", str(player.xp)+"\n",str(player.xp_cap)+"\n", str(player.lvl)+"\n"]
             save.writelines(n)
