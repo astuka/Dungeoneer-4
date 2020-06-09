@@ -96,8 +96,16 @@ while game:
         ans0 = input("You are fighting a "+monster.name+". What would you like to do?\n1.Attack\n2.Switch Zone\n3.Save\n")
         if ans0 == "1":
             #have an ans1 here that asks for fight or magic, for magic have them choose which one, then have outside stuff that says "hey you cant use this" or whatever
-            monster.health -= max(r.randrange(0,player.atk) - r.randrange(0,monster.de),0) #either does damage or blocks all damage
-            player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
+            ans1 = input("What type of attack?\n1.Normal\n2.Magic\n")
+            if ans1 == "1":
+                monster.health -= max(r.randrange(0,player.atk) - r.randrange(0,monster.de),0) #either does damage or blocks all damage
+                player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0) #set this so that there's higher base than 0
+            if ans1 == "2":
+                ans2 = input("What type of attack?\n1.Fireball\n") #later get this from an array in player, for loop
+                #not even gonna set up another if for that LOL
+                monster.health -= fireball.ability #this would have to change depending on skill
+                player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
+                player.mag -= fireball.cost #NEED TO SET UP CHECK FOR MAG AND MAKE SURE MAG DOES NOT GO BELOW 0
             if monster.health <= 0:
                 print("You killed the "+monster.name+" and received "+str(monster.xp)+" XP.")
                 fight = False
