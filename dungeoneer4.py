@@ -1,10 +1,10 @@
 #TO DO
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
-#add magic/skills
 #add items
 #recommended levels for the zones
 #add classes
+#set definitive variable structure for skills
 
 import random as r
 #import numpy as np
@@ -95,7 +95,6 @@ while game:
     while fight: 
         ans0 = input("You are fighting a "+monster.name+". What would you like to do?\n1.Attack\n2.Switch Zone\n3.Save\n")
         if ans0 == "1":
-            #have an ans1 here that asks for fight or magic, for magic have them choose which one, then have outside stuff that says "hey you cant use this" or whatever
             ans1 = input("What type of attack?\n1.Normal\n2.Magic\n")
             if ans1 == "1":
                 monster.health -= max(r.randrange(0,player.atk) - r.randrange(0,monster.de),0) #either does damage or blocks all damage
@@ -103,9 +102,14 @@ while game:
             if ans1 == "2":
                 ans2 = input("What type of attack?\n1.Fireball\n") #later get this from an array in player, for loop
                 #not even gonna set up another if for that LOL
-                monster.health -= fireball.ability #this would have to change depending on skill
-                player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
-                player.mag -= fireball.cost #NEED TO SET UP CHECK FOR MAG AND MAKE SURE MAG DOES NOT GO BELOW 0
+                if player.mag >= fireball.cost:
+                    player.mag -= fireball.cost
+                    monster.health -= fireball.ability #this would have to change depending on skill 
+                    player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
+                else:
+                    print("You did not have enough magick for that spell, and whiffed!")
+                    player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
+
             if monster.health <= 0:
                 print("You killed the "+monster.name+" and received "+str(monster.xp)+" XP.")
                 fight = False
