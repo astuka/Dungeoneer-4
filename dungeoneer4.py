@@ -7,7 +7,6 @@
 #set definitive variable structure for skills
 
 import random as r
-#import numpy as np
 
 #creates a Character
 class Character:
@@ -46,6 +45,8 @@ magic_defense = 1
 
 #skill initialization
 fireball = Skill("Fireball", magic_attack, 10, 10)
+
+skills = [fireball]
 
 #monster initialization
 goblin = Monster("Goblin", 10, 13, 3, 10)
@@ -100,11 +101,18 @@ while game:
                 monster.health -= max(r.randrange(0,player.atk) - r.randrange(0,monster.de),0) #either does damage or blocks all damage
                 player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0) #set this so that there's higher base than 0
             if ans1 == "2":
-                ans2 = input("What type of attack?\n1.Fireball\n") #later get this from an array in player, for loop
-                #not even gonna set up another if for that LOL
-                if player.mag >= fireball.cost:
-                    player.mag -= fireball.cost
-                    monster.health -= fireball.ability #this would have to change depending on skill 
+                print("\n")
+                num_skill = 1
+                for skill in skills:
+                    print(str(num_skill) +". "+ skill.name+"\n")
+                    num_skill += 1
+                skill_choice = input("Which skill would you like to use?\n")
+                print(skills[int(skill_choice) - 1])
+                if skill_choice == '1':
+                    played_skill = fireball     
+                if player.mag >= played_skill.cost:
+                    player.mag -= played_skill.cost
+                    monster.health -= played_skill.ability #this would have to change depending on skill 
                     player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
                 else:
                     print("You did not have enough magick for that spell, and whiffed!")
