@@ -112,10 +112,13 @@ while game:
                     played_skill = fireball     
                 if player.mag >= played_skill.cost:
                     player.mag -= played_skill.cost
-                    monster.health -= played_skill.ability #this would have to change depending on skill 
-                    player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
+                    if played_skill.typ == magic_attack:
+                         monster.health -= played_skill.ability #played_skill.typ = magic_attack/magic_defense
+                         player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
+                    elif played_skill.typ == magic_defense:
+                        player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de) - played_skill.ability,0)
                 else:
-                    print("You did not have enough magick for that spell, and whiffed!")
+                    print("You did not have enough magic for that spell, and whiffed!")
                     player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
 
             if monster.health <= 0:
