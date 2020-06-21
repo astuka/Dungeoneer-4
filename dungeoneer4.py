@@ -2,9 +2,7 @@
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
 #add items
-#recommended levels for the zones
 #add classes
-#set definitive variable structure for skills
 
 import random as r
 
@@ -58,7 +56,7 @@ naga = Monster("Naga", 15, 5, 1, 20)
 
 
 #zones + monsters
-zones = ["Lake", "Forest"]
+zones = ["Lake [Levels 1-2]", "Forest [Levels 2-3]"]
 lake_monsters = [sahuagin, naga]
 forest_monsters = [goblin, orc, ogre]
 
@@ -113,7 +111,7 @@ while game:
                 if player.mag >= played_skill.cost:
                     player.mag -= played_skill.cost
                     if played_skill.typ == magic_attack:
-                         monster.health -= played_skill.ability #played_skill.typ = magic_attack/magic_defense
+                         monster.health -= played_skill.ability 
                          player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
                     elif played_skill.typ == magic_defense:
                         player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de) - played_skill.ability,0)
