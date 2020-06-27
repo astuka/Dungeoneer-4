@@ -1,7 +1,7 @@
 #TO DO
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
-#make a town zone for selling stuff
+#make a town zone for selling stuff and getting quests
 
 import random as r
 
@@ -51,6 +51,20 @@ class Class:
         self.de = de #added/subtracted from base
         self.mag = mag #added/subtracted from base
 #have person choose from array at beginning of new game
+
+class Quest:
+    def __init__(self,name,text,current,goal,reward,reward_type):
+        self.name = name #name of quest on list
+        self.text = text #expanded quest description
+        self.current = current #current scenario
+        self.goal = goal #goal scenario
+        self.reward = reward #amount or name of item
+        self.reward_type = reward_type #gold, xp, etc.
+
+
+
+
+
 
 #main menu
 test = input("Welcome to Dungeoneer 4\n1. Start game \n2. Load Game\n")
