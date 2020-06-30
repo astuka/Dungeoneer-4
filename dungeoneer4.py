@@ -7,11 +7,12 @@ import random as r
 
 #creates a Character
 class Character:
-    def __init__(self,health=100,atk=10,de=10, mag=10, xp=0, xp_cap = 100, lvl = 1):
+    def __init__(self,health=100,atk=10,de=10, mag=10, gold=0, xp=0, xp_cap = 100, lvl = 1):
         self.health = health
         self.atk = atk
         self.de = de
         self.mag = mag
+        self.gold = gold
         self.xp = xp
         self.xp_cap = xp_cap
         self.lvl = lvl
@@ -25,6 +26,7 @@ class Monster:
         self.de = de
         self.xp = xp
 
+#creates a Skill
 class Skill:
     def __init__(self, name, typ, ability, cost):
         self.name = name
@@ -32,6 +34,7 @@ class Skill:
         self.ability = ability
         self.cost = cost
 
+#creates an Item
 class Item:
     def __init__(self, name, typ, ability, sell_price, buy_price):
         self.name = name
@@ -42,6 +45,7 @@ class Item:
 #if equip, adds to stats until un equiped (some function decides this)
 #if consum, one time use
 
+#creates a Class
 class Class:
     def __init__(self,name, skills, health, atk, de,mag):
         self.name = name
@@ -52,6 +56,7 @@ class Class:
         self.mag = mag #added/subtracted from base
 #have person choose from array at beginning of new game
 
+#creates a Quest
 class Quest:
     def __init__(self,name,text,current,goal,reward,reward_type):
         self.name = name #name of quest on list
@@ -77,6 +82,17 @@ magic_defense = 1
 fireball = Skill("Fireball", magic_attack, 10, 10)
 
 skills = [fireball]
+
+#item types
+weapon = 0
+armor = 1
+accessory = 2
+potion = 3
+
+#item initialization
+iron_sword = Item("Iron Sword", weapon, 2, 5, 10)
+
+items = [iron_sword]
 
 #monster initialization
 goblin = Monster("Goblin", 10, 13, 3, 10)
@@ -108,10 +124,11 @@ if test == "2":
     atk = int(save.readline())
     de = int(save.readline())
     mag = int(save.readline())
+    gold = int(save.readline())
     xp = int(save.readline())
     xp_cap = int(save.readline())
     lvl =int(save.readline())
-    player = Character(health,atk,de,mag,xp,xp_cap,lvl)
+    player = Character(health,atk,de,mag,gold,xp,xp_cap,lvl)
     player_default = player.health
 
 
