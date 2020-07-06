@@ -1,7 +1,6 @@
 #TO DO
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
-#make a town zone for selling stuff and getting quests
 
 import random as r
 
@@ -94,6 +93,11 @@ iron_sword = Item("Iron Sword", weapon, 2, 5, 10)
 
 items = [iron_sword]
 
+#class initialization
+warrior = Class("Warrior",[slash,gigaslash],0, 5, 0, -5 ) #add the skills to skill init
+
+classes = [warrior]
+
 #monster initialization
 goblin = Monster("Goblin", 10, 13, 3, 10)
 orc = Monster("Orc", 5, 15, 5, 15)
@@ -104,7 +108,7 @@ naga = Monster("Naga", 15, 5, 1, 20)
 
 
 #zones + monsters
-zones = ["Lake [Levels 1-2]", "Forest [Levels 2-3]"]
+zones = ["Town","Lake [Levels 1-2]", "Forest [Levels 2-3]"]
 lake_monsters = [sahuagin, naga]
 forest_monsters = [goblin, orc, ogre]
 
@@ -199,9 +203,18 @@ while game:
             zone_choice = input("Which zone would you like to go to?\n")
             print(zones[int(zone_choice) - 1])
             if zone_choice == '1':
-                monsters = lake_monsters    
+                #new menu items: buy/sell, get quest, switch zones
+                #buy/sell: get list of items from shop, get list of items on character
+                    #find item value, compare that with character money if buying
+                    #check if character has it if selling
+                #get quest
+                    #get list of quests
+                    #user can choose one, added to their quest list
+                    #when they hit the goal, automatically get rewards 
             if zone_choice == '2':
-                monsters = forest_monsters   
+                monsters = lake_monsters   
+            if zone_choice == '3':
+                monsters = forest_monsters
         if ans0 == "3":
             save = open('save.txt','w')
             n = [str(player.health)+"\n", str(player.atk)+"\n", str(player.de)+"\n",str(player.mag)+"\n", str(player.xp)+"\n",str(player.xp_cap)+"\n", str(player.lvl)+"\n"]
