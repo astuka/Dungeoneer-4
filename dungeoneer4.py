@@ -98,6 +98,16 @@ warrior = Class("Warrior",[slash,gigaslash],0, 5, 0, -5 ) #add the skills to ski
 
 classes = [warrior]
 
+#reward types
+gold = 0
+xp = 1
+item = 2
+
+#quest initialization
+goblin_5 = Quest("Kill 5 Goblins", "Kill 5 goblins to complete this quest", 0, 5, 100,0)
+
+quests = [goblin_5]
+
 #monster initialization
 goblin = Monster("Goblin", 10, 13, 3, 10)
 orc = Monster("Orc", 5, 15, 5, 15)
