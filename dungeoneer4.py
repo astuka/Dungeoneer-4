@@ -213,14 +213,18 @@ while game:
             zone_choice = input("Which zone would you like to go to?\n")
             print(zones[int(zone_choice) - 1])
             if zone_choice == '1':
-                #new menu items: buy/sell, get quest, switch zones
-                #buy/sell: get list of items from shop, get list of items on character
-                    #find item value, compare that with character money if buying
-                    #check if character has it if selling
-                #get quest
-                    #get list of quests
-                    #user can choose one, added to their quest list
-                    #when they hit the goal, automatically get rewards 
+                ans0 = input("You are in town. What would you like to do?\n1.Buy/Sell items\n2.Get a Quest\n3.Switch Zones")
+                if ans0 == '1':
+                    #buy/sell: get list of items from shop, get list of items on character
+                      #find item value, compare that with character money if buying
+                      #check if character has it if selling
+                if ans0 == '2':
+                    #get quest
+                        #get list of quests
+                        #user can choose one, added to their quest list
+                        #when they hit the goal, automatically get rewards 
+                if ans0 == '3':
+                    #call a "switch zone" function
             if zone_choice == '2':
                 monsters = lake_monsters   
             if zone_choice == '3':
