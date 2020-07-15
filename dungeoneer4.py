@@ -6,7 +6,7 @@ import random as r
 
 #creates a Character
 class Character:
-    def __init__(self,health=100,atk=10,de=10, mag=10, gold=0, xp=0, xp_cap = 100, lvl = 1):
+    def __init__(self,health=100,atk=10,de=10, mag=10, gold=0, xp=0, xp_cap = 100, lvl = 1, inventory=[]):
         self.health = health
         self.atk = atk
         self.de = de
@@ -15,6 +15,7 @@ class Character:
         self.xp = xp
         self.xp_cap = xp_cap
         self.lvl = lvl
+        self.inventory = inventory
 
 #creates a Monster
 class Monster:
@@ -142,7 +143,8 @@ if test == "2":
     xp = int(save.readline())
     xp_cap = int(save.readline())
     lvl =int(save.readline())
-    player = Character(health,atk,de,mag,gold,xp,xp_cap,lvl)
+    inventory = save.readline() #take in mind, grabbing an array here 
+    player = Character(health,atk,de,mag,gold,xp,xp_cap,lvl, inventory)
     player_default = player.health
 
 
@@ -215,6 +217,10 @@ while game:
             if zone_choice == '1':
                 ans0 = input("You are in town. What would you like to do?\n1.Buy/Sell items\n2.Get a Quest\n3.Switch Zones")
                 if ans0 == '1':
+                    shop = [] #fill with items
+                    #player.inventory
+
+
                     #buy/sell: get list of items from shop, get list of items on character
                       #find item value, compare that with character money if buying
                       #check if character has it if selling
