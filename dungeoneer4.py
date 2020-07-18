@@ -80,8 +80,10 @@ magic_defense = 1
 
 #skill initialization
 fireball = Skill("Fireball", magic_attack, 10, 10)
+slash = Skill("Slash", magic_attack, 10, 10)
+gigaslash = Skill("GigaSlash", magic_attack, 25, 20)
 
-skills = [fireball]
+skills = [fireball, slash, gigaslash]
 
 #item types
 weapon = 0
