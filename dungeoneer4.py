@@ -219,9 +219,14 @@ while game:
             if zone_choice == '1':
                 ans0 = input("You are in town. What would you like to do?\n1.Buy/Sell items\n2.Get a Quest\n3.Switch Zones")
                 if ans0 == '1':
-                    shop = [] #fill with items
-                    #player.inventory
+                    shop = items #for now, change when there's multiple town zones
+                    print("Shop's Inventory:\n")
+                    for item in shop:
+                        print(shop[item].name +", "+str(shop[item].buy_price))
 
+                    print("Player's Inventory:\n")
+                    for item in player.inventory:
+                        print(player.inventory[item].name +", "+str(player.inventory[item].sell_price))
 
                     #buy/sell: get list of items from shop, get list of items on character
                       #find item value, compare that with character money if buying
