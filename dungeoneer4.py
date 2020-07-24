@@ -232,6 +232,9 @@ while game:
                       #find item value, compare that with character money if buying
                       #check if character has it if selling
                 if ans0 == '2':
+                    print("Available Quests:\n")
+                    for quest in quests:
+                        print(quests[quest].name+": "+quests[quest].text)
                     #get quest
                         #get list of quests
                         #user can choose one, added to their quest list
