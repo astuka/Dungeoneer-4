@@ -1,8 +1,12 @@
 #TO DO
 #the first enemy you fight in a zone is an enemy from the old zone, then it goes to the new zone. why? 
 #incorporate elements from DnD
+#add loot to enemies
 
 import random as r
+
+################################# CLASSES #################################
+
 
 #creates a Character
 class Character:
@@ -68,11 +72,8 @@ class Quest:
 
 
 
+################################# ASSETS #################################
 
-
-
-#main menu
-test = input("Welcome to Dungeoneer 4\n1. Start game \n2. Load Game\n")
 
 #skill types
 magic_attack = 0
@@ -127,6 +128,11 @@ forest_monsters = [goblin, orc, ogre]
 
 monsters = lake_monsters
 
+################################# FUNCTIONS #################################
+
+#main menu
+test = input("Welcome to Dungeoneer 4\n1. Start game \n2. Load Game\n")
+
 #new game
 if test == "1":
   player = Character()
@@ -149,8 +155,53 @@ if test == "2":
     player = Character(health,atk,de,mag,gold,xp,xp_cap,lvl, inventory)
     player_default = player.health
 
+def switch_zone():
+    print("\n")
+    num_zone = 1
+    for zone in zones:
+        print(str(num_zone) +". "+ zone+"\n")
+        num_zone += 1
+    zone_choice = input("Which zone would you like to go to?\n")
+    print(zones[int(zone_choice) - 1])
+    if zone_choice == '1':
+        ans0 = input("You are in town. What would you like to do?\n1.Buy/Sell items\n2.Get a Quest\n3.Switch Zones")
+        if ans0 == '1':
+            shop = items #for now, change when there's multiple town zones
+            n = 1
+            print("Shop's Inventory:\n")
+            for item in shop:
+                print(str(n)+". "+shop[item].name +", "+str(shop[item].buy_price))
+                n += 1
 
-#game loop
+
+            n = 1
+            print("Player's Inventory:\n")
+            for item in player.inventory:
+                print(str(n)+". "+player.inventory[item].name +", "+str(player.inventory[item].sell_price))
+                n+=1 
+
+            #buy/sell: get list of items from shop, get list of items on character
+                #find item value, compare that with character money if buying
+                #check if character has it if selling
+        if ans0 == '2':
+            print("Available Quests:\n")
+            n = 1
+            for quest in quests:
+                print(str(n)+". "+quests[quest].name+": "+quests[quest].text)
+                n += 1
+            #get quest
+                #get list of quests
+                #user can choose one, added to their quest list
+                #when they hit the goal, automatically get rewards 
+        if ans0 == '3':
+            switch_zone()
+    if zone_choice == '2':
+        monsters = lake_monsters   
+    if zone_choice == '3':
+        monsters = forest_monsters
+
+################################# GAME LOOP #################################
+
 game = True
 while game:
     #pick monster
@@ -209,42 +260,7 @@ while game:
                 fight = False
                 game = False
         if ans0 == "2":
-            print("\n")
-            num_zone = 1
-            for zone in zones:
-                print(str(num_zone) +". "+ zone+"\n")
-                num_zone += 1
-            zone_choice = input("Which zone would you like to go to?\n")
-            print(zones[int(zone_choice) - 1])
-            if zone_choice == '1':
-                ans0 = input("You are in town. What would you like to do?\n1.Buy/Sell items\n2.Get a Quest\n3.Switch Zones")
-                if ans0 == '1':
-                    shop = items #for now, change when there's multiple town zones
-                    print("Shop's Inventory:\n")
-                    for item in shop:
-                        print(shop[item].name +", "+str(shop[item].buy_price))
-
-                    print("Player's Inventory:\n")
-                    for item in player.inventory:
-                        print(player.inventory[item].name +", "+str(player.inventory[item].sell_price))
-
-                    #buy/sell: get list of items from shop, get list of items on character
-                      #find item value, compare that with character money if buying
-                      #check if character has it if selling
-                if ans0 == '2':
-                    print("Available Quests:\n")
-                    for quest in quests:
-                        print(quests[quest].name+": "+quests[quest].text)
-                    #get quest
-                        #get list of quests
-                        #user can choose one, added to their quest list
-                        #when they hit the goal, automatically get rewards 
-                if ans0 == '3':
-                    #call a "switch zone" function
-            if zone_choice == '2':
-                monsters = lake_monsters   
-            if zone_choice == '3':
-                monsters = forest_monsters
+            switch_zone()
         if ans0 == "3":
             save = open('save.txt','w')
             n = [str(player.health)+"\n", str(player.atk)+"\n", str(player.de)+"\n",str(player.mag)+"\n", str(player.xp)+"\n",str(player.xp_cap)+"\n", str(player.lvl)+"\n"]
