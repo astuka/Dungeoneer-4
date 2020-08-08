@@ -167,10 +167,10 @@ def switch_zone():
         ans0 = input("You are in town. What would you like to do?\n1.Buy/Sell items\n2.Get a Quest\n3.Switch Zones")
         if ans0 == '1':
             shop = items #for now, change when there's multiple town zones
-            n = 1
+            n = 0
             print("Shop's Inventory:\n")
             for item in shop:
-                print(str(n)+". "+shop[item].name +", "+str(shop[item].buy_price))
+                print(str(n)+". "+shop[n].name +", "+str(shop[n].buy_price))
                 n += 1
 
 
@@ -185,9 +185,9 @@ def switch_zone():
                 #check if character has it if selling
         if ans0 == '2':
             print("Available Quests:\n")
-            n = 1
+            n = 0
             for quest in quests:
-                print(str(n)+". "+quests[quest].name+": "+quests[quest].text)
+                print(str(n)+". "+quests[n].name+": "+quests[n].text)
                 n += 1
             #get quest
                 #get list of quests
