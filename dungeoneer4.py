@@ -167,22 +167,27 @@ def switch_zone():
         ans0 = input("You are in town. What would you like to do?\n1.Buy/Sell items\n2.Get a Quest\n3.Switch Zones")
         if ans0 == '1':
             shop = items #for now, change when there's multiple town zones
-            n = 0
-            print("Shop's Inventory:\n")
-            for item in shop:
-                print(str(n)+". "+shop[n].name +", "+str(shop[n].buy_price))
-                n += 1
+            ans1 = input("Would you like to buy or sell?")
+            if ans1 == "Buy": 
+                n = 0
+                print("Shop's Inventory:\n")
+                for item in shop:
+                    print(str(n)+". "+shop[n].name +", "+str(shop[n].buy_price))
+                    n += 1
+                #input: what item would you like to buy?
+                #if money > buy, take money out and put item in inventory
+                #print you have bought X
 
+            elif ans1 == "Sell":
+                n = 1
+                print("Player's Inventory:\n")
+                for item in player.inventory:
+                    print(str(n)+". "+player.inventory[item].name +", "+str(player.inventory[item].sell_price))
+                    n+=1 
+                #input: what item would you like to sell?
+                    #money + sell price, remove from inventory
+                    #print you have sold X
 
-            n = 1
-            print("Player's Inventory:\n")
-            for item in player.inventory:
-                print(str(n)+". "+player.inventory[item].name +", "+str(player.inventory[item].sell_price))
-                n+=1 
-
-            #buy/sell: get list of items from shop, get list of items on character
-                #find item value, compare that with character money if buying
-                #check if character has it if selling
         if ans0 == '2':
             print("Available Quests:\n")
             n = 0
