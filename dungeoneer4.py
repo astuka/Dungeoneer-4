@@ -4,129 +4,9 @@
 #add loot to enemies
 
 import random as r
+import content as c
 
-################################# CLASSES #################################
-
-
-#creates a Character
-class Character:
-    def __init__(self,health=100,atk=10,de=10, mag=10, gold=0, xp=0, xp_cap = 100, lvl = 1, inventory=[]):
-        self.health = health
-        self.atk = atk
-        self.de = de
-        self.mag = mag
-        self.gold = gold
-        self.xp = xp
-        self.xp_cap = xp_cap
-        self.lvl = lvl
-        self.inventory = inventory
-
-#creates a Monster
-class Monster:
-    def __init__(self,name, health,atk,de, xp):
-        self.name = name
-        self.health = health
-        self.atk = atk
-        self.de = de
-        self.xp = xp
-
-#creates a Skill
-class Skill:
-    def __init__(self, name, typ, ability, cost):
-        self.name = name
-        self.typ = typ
-        self.ability = ability
-        self.cost = cost
-
-#creates an Item
-class Item:
-    def __init__(self, name, typ, ability, sell_price, buy_price):
-        self.name = name
-        self.typ = typ #armor, weapon, consumable
-        self.ability = ability #effects different parts depending on typ
-        self.sell_price = sell_price
-        self.buy_price = buy_price
-#if equip, adds to stats until un equiped (some function decides this)
-#if consum, one time use
-
-#creates a Class
-class Class:
-    def __init__(self,name, skills, health, atk, de,mag):
-        self.name = name
-        self.skills = skills #an array that replaces skills down below
-        self.health = health #added/subtracted from base
-        self.atk = atk #added/subtracted from base
-        self.de = de #added/subtracted from base
-        self.mag = mag #added/subtracted from base
-#have person choose from array at beginning of new game
-
-#creates a Quest
-class Quest:
-    def __init__(self,name,text,current,goal,reward,reward_type):
-        self.name = name #name of quest on list
-        self.text = text #expanded quest description
-        self.current = current #current scenario
-        self.goal = goal #goal scenario
-        self.reward = reward #amount or name of item
-        self.reward_type = reward_type #gold, xp, etc.
-
-
-
-################################# ASSETS #################################
-
-
-#skill types
-magic_attack = 0
-magic_defense = 1
-
-#skill initialization
-fireball = Skill("Fireball", magic_attack, 10, 10)
-slash = Skill("Slash", magic_attack, 10, 10)
-gigaslash = Skill("GigaSlash", magic_attack, 25, 20)
-
-skills = [fireball, slash, gigaslash]
-
-#item types
-weapon = 0
-armor = 1
-accessory = 2
-potion = 3
-
-#item initialization
-iron_sword = Item("Iron Sword", weapon, 2, 5, 10)
-
-items = [iron_sword]
-
-#class initialization
-warrior = Class("Warrior",[slash,gigaslash],0, 5, 0, -5 ) #add the skills to skill init
-
-classes = [warrior]
-
-#reward types
-gold = 0
-xp = 1
-item = 2
-
-#quest initialization
-goblin_5 = Quest("Kill 5 Goblins", "Kill 5 goblins to complete this quest", 0, 5, 100,0)
-
-quests = [goblin_5]
-
-#monster initialization
-goblin = Monster("Goblin", 10, 13, 3, 10)
-orc = Monster("Orc", 5, 15, 5, 15)
-ogre = Monster("Ogre", 20, 11, 1, 20)
-
-sahuagin = Monster("Sahuagin", 5, 15, 1, 20)
-naga = Monster("Naga", 15, 5, 1, 20)
-
-
-#zones + monsters
-zones = ["Town","Lake [Levels 1-2]", "Forest [Levels 2-3]"]
-lake_monsters = [sahuagin, naga]
-forest_monsters = [goblin, orc, ogre]
-
-monsters = lake_monsters
+monsters = c.lake_monsters
 
 ################################# FUNCTIONS #################################
 
@@ -135,7 +15,7 @@ test = input("Welcome to Dungeoneer 4\n1. Start game \n2. Load Game\n")
 
 #new game
 if test == "1":
-  player = Character()
+  player = c.Character()
   player_default = player.health
 
 #load game
@@ -152,21 +32,21 @@ if test == "2":
     xp_cap = int(save.readline())
     lvl =int(save.readline())
     inventory = save.readline() #take in mind, grabbing an array here 
-    player = Character(health,atk,de,mag,gold,xp,xp_cap,lvl, inventory)
+    player = c.Character(health,atk,de,mag,gold,xp,xp_cap,lvl, inventory)
     player_default = player.health
 
 def switch_zone():
     print("\n")
     num_zone = 1
-    for zone in zones:
+    for zone in c.zones:
         print(str(num_zone) +". "+ zone+"\n")
         num_zone += 1
     zone_choice = input("Which zone would you like to go to?\n")
-    print(zones[int(zone_choice) - 1])
+    print(c.zones[int(zone_choice) - 1])
     if zone_choice == '1':
         ans0 = input("You are in town. What would you like to do?\n1.Buy/Sell items\n2.Get a Quest\n3.Switch Zones")
         if ans0 == '1':
-            shop = items #for now, change when there's multiple town zones
+            shop = c.items #for now, change when there's multiple town zones
             ans1 = input("Would you like to buy or sell?")
             if ans1 == "Buy": 
                 n = 0
@@ -191,8 +71,8 @@ def switch_zone():
         if ans0 == '2':
             print("Available Quests:\n")
             n = 0
-            for quest in quests:
-                print(str(n)+". "+quests[n].name+": "+quests[n].text)
+            for quest in c.quests:
+                print(str(n)+". "+c.quests[n].name+": "+c.quests[n].text)
                 n += 1
             #get quest
                 #get list of quests
@@ -201,9 +81,9 @@ def switch_zone():
         if ans0 == '3':
             switch_zone()
     if zone_choice == '2':
-        monsters = lake_monsters   
+        monsters = c.lake_monsters   
     if zone_choice == '3':
-        monsters = forest_monsters
+        monsters = c.forest_monsters
 
 ################################# GAME LOOP #################################
 
@@ -224,19 +104,19 @@ while game:
             if ans1 == "2":
                 print("\n")
                 num_skill = 1
-                for skill in skills:
+                for skill in c.skills:
                     print(str(num_skill) +". "+ skill.name+"\n")
                     num_skill += 1
                 skill_choice = input("Which skill would you like to use?\n")
-                print(skills[int(skill_choice) - 1])
+                print(c.skills[int(skill_choice) - 1])
                 if skill_choice == '1':
-                    played_skill = fireball     
+                    played_skill = c.fireball     
                 if player.mag >= played_skill.cost:
                     player.mag -= played_skill.cost
-                    if played_skill.typ == magic_attack:
+                    if played_skill.typ == c.magic_attack:
                          monster.health -= played_skill.ability 
                          player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de),0)
-                    elif played_skill.typ == magic_defense:
+                    elif played_skill.typ == c.magic_defense:
                         player.health -= max(r.randrange(0,monster.atk) - r.randrange(0,player.de) - played_skill.ability,0)
                 else:
                     print("You did not have enough magic for that spell, and whiffed!")
